@@ -181,78 +181,7 @@ class ThreeBackground {
 }
 
 
-// ==========================================
-// 2. LERP CUSTOM TRAILING CURSOR
-// ==========================================
-class CustomCursor {
-    constructor() {
-        this.glow = document.getElementById('custom-cursor-glow');
-        this.dot = document.getElementById('custom-cursor-dot');
-        if (!this.glow || !this.dot) return;
 
-        this.mouse = { x: 0, y: 0 };
-        this.glowPos = { x: 0, y: 0 };
-        this.dotPos = { x: 0, y: 0 };
-        
-        this.hasMoved = false;
-
-        this.init();
-    }
-
-    init() {
-        window.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.clientX;
-            this.mouse.y = e.clientY;
-            
-            if (!this.hasMoved) {
-                // Instantly position elements on first move to prevent starting transitions from top-left corner
-                this.glowPos.x = this.dotPos.x = this.mouse.x;
-                this.glowPos.y = this.dotPos.y = this.mouse.y;
-                
-                this.glow.style.opacity = '1';
-                this.dot.style.opacity = '1';
-                this.hasMoved = true;
-            }
-        });
-
-        // Run cursor animation loop
-        this.tick();
-        this.bindHovers();
-    }
-
-    tick() {
-        requestAnimationFrame(() => this.tick());
-
-        if (!this.hasMoved) return;
-
-        // Lerp factor (0.15 for glow gives lag, 0.3 for dot gives instant feedback)
-        this.glowPos.x += (this.mouse.x - this.glowPos.x) * 0.12;
-        this.glowPos.y += (this.mouse.y - this.glowPos.y) * 0.12;
-        
-        this.dotPos.x += (this.mouse.x - this.dotPos.x) * 0.35;
-        this.dotPos.y += (this.mouse.y - this.dotPos.y) * 0.35;
-
-        this.glow.style.left = `${this.glowPos.x}px`;
-        this.glow.style.top = `${this.glowPos.y}px`;
-
-        this.dot.style.left = `${this.dotPos.x}px`;
-        this.dot.style.top = `${this.dotPos.y}px`;
-    }
-
-    bindHovers() {
-        // Find all interactive items
-        const targets = document.querySelectorAll('a, button, .project-card, .skills-card, .mobile-menu-btn');
-        
-        targets.forEach(target => {
-            target.addEventListener('mouseenter', () => {
-                this.glow.classList.add('cursor-hover-active');
-            });
-            target.addEventListener('mouseleave', () => {
-                this.glow.classList.remove('cursor-hover-active');
-            });
-        });
-    }
-}
 
 
 // ==========================================
@@ -446,8 +375,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 1. Initialize 3D Engine
     new ThreeBackground();
 
-    // 2. Initialize Custom Cursor Physics
-    new CustomCursor();
+
 
     // 3. Initialize Interactive Card Systems
     new InteractiveCards();
