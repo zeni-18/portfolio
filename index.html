@@ -4,465 +4,340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Narendhran | Full-Stack Developer</title>
-    <style>
-        /* ===== RESET & VARIABLES ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;600;800&display=swap');
-
-        :root {
-            --bg-dark: #0a0a0a;
-            --bg-card: rgba(20, 20, 20, 0.7);
-            --primary: #00f0ff;
-            /* Cyberpunk Cyan */
-            --secondary: #7000ff;
-            /* Deep Neon Purple */
-            --text-main: #f3f4f6;
-            --text-muted: #9ca3af;
-            --glass-border: rgba(255, 255, 255, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        h1,
-        h2,
-        h3 {
-            font-weight: 800;
-            line-height: 1.2;
-        }
-
-        .mono {
-            font-family: 'Fira Code', monospace;
-            color: var(--primary);
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-        }
-
-        /* ===== BACKGROUND GLOW ===== */
-        .bg-glow {
-            position: fixed;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background:
-                radial-gradient(circle at 50% 50%, rgba(112, 0, 255, 0.05) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 240, 255, 0.05) 0%, transparent 40%);
-            z-index: -1;
-            pointer-events: none;
-        }
-
-        /* ===== LAYOUT ===== */
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        section {
-            padding: 8rem 0;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-        }
-
-        /* ===== NAVIGATION ===== */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--glass-border);
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 80px;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            letter-spacing: -1px;
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2.5rem;
-        }
-
-        .nav-links a {
-            font-size: 0.9rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            transition: var(--transition);
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-            text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
-        }
-
-        /* ===== BUTTONS ===== */
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 2rem;
-            border-radius: 4px;
-            font-weight: 600;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: var(--transition);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .btn-primary {
-            background: transparent;
-            color: var(--primary);
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 10px rgba(0, 240, 255, 0.1);
-        }
-
-        .btn-primary:hover {
-            background: rgba(0, 240, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 240, 255, 0.3);
-            transform: translateY(-2px);
-        }
-
-        /* ===== HERO SECTION ===== */
-        .hero h1 {
-            font-size: 5rem;
-            margin: 1rem 0;
-            background: linear-gradient(to right, var(--text-main), var(--text-muted));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .hero h2 {
-            font-size: 2rem;
-            color: var(--text-muted);
-            margin-bottom: 2rem;
-        }
-
-        .hero p {
-            max-width: 600px;
-            color: var(--text-muted);
-            font-size: 1.1rem;
-            margin-bottom: 3rem;
-        }
-
-        /* ===== SKILLS / TECH STACK ===== */
-        .section-title {
-            display: flex;
-            align-items: center;
-            font-size: 2rem;
-            margin-bottom: 3rem;
-        }
-
-        .section-title::after {
-            content: '';
-            flex-grow: 1;
-            height: 1px;
-            background: var(--glass-border);
-            margin-left: 2rem;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-            gap: 2rem;
-        }
-
-        .skill-tag {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-
-        .skill-tag:hover {
-            border-color: var(--primary);
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        /* ===== PROJECTS SECTION ===== */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .project-card {
-            background: var(--bg-card);
-            border: 1px solid var(--glass-border);
-            border-radius: 12px;
-            padding: 2rem;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .project-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--secondary);
-            box-shadow: 0 10px 30px rgba(112, 0, 255, 0.1);
-        }
-
-        .project-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .folder-icon {
-            font-size: 2.5rem;
-            color: var(--primary);
-        }
-
-        .project-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .project-desc {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 2rem;
-        }
-
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-
-        /* ===== CONTACT ===== */
-        .contact {
-            text-align: center;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        .contact p {
-            margin-bottom: 3rem;
-            color: var(--text-muted);
-        }
-
-        /* ===== FOOTER ===== */
-        footer {
-            text-align: center;
-            padding: 2rem 0;
-            font-family: 'Fira Code', monospace;
-            font-size: 0.8rem;
-            color: var(--text-muted);
-            border-top: 1px solid var(--glass-border);
-        }
-
-        /* ===== ANIMATIONS ===== */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.8s cubic-bezier(0.5, 0, 0, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            /* Add hamburger menu logic here if needed */
-            section {
-                padding: 5rem 0;
-            }
-        }
-    </style>
+    
+    <!-- SEO Meta Tags -->
+    <title>Narendhran | Full-Stack Systems Engineer & Developer</title>
+    <meta name="description" content="Portfolio of Narendhran, a Full-Stack Systems Developer specializing in high-performance backends (Spring Boot), React apps, and data-driven systems.">
+    <meta name="keywords" content="Narendhran, Full-Stack Developer, Spring Boot, React, 3D Portfolio, Systems Engineer">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Narendhran | Full-Stack Systems Engineer & Developer">
+    <meta property="og:description" content="Portfolio of Narendhran, a Full-Stack Systems Developer specializing in high-performance backends (Spring Boot), React apps, and data-driven systems.">
+    <meta property="og:image" content="https://narendhran.dev/preview.jpg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome for Premium Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <!-- 3D Canvas Background Container -->
+    <div id="canvas-container"></div>
+    
+    <!-- Background Glow Overlays -->
     <div class="bg-glow"></div>
+    <div class="grid-overlay"></div>
 
-    <header>
+    <!-- Custom Cursor -->
+    <div class="cursor-glow" id="custom-cursor-glow"></div>
+    <div class="cursor-dot" id="custom-cursor-dot"></div>
+
+    <!-- Navigation Header -->
+    <header id="main-header">
         <div class="container nav-container">
-            <a href="#" class="logo">Narendhran<span class="mono">.dev</span></a>
-            <ul class="nav-links">
-                <li><a href="#about">01. About</a></li>
-                <li><a href="#skills">02. Skills</a></li>
-                <li><a href="#projects">03. Work</a></li>
-                <li><a href="#contact">04. Contact</a></li>
-            </ul>
+            <a href="#" class="logo" id="nav-logo">Narendhran<span class="mono-cyan">.dev</span></a>
+            <nav>
+                <ul class="nav-links">
+                    <li><a href="#about" class="nav-link-item" id="nav-link-about"><span>01.</span>About</a></li>
+                    <li><a href="#skills" class="nav-link-item" id="nav-link-skills"><span>02.</span>Skills</a></li>
+                    <li><a href="#projects" class="nav-link-item" id="nav-link-projects"><span>03.</span>Work</a></li>
+                    <li><a href="#contact" class="nav-link-item" id="nav-link-contact"><span>04.</span>Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button class="mobile-menu-btn" id="mobile-toggle" aria-label="Toggle navigation menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
         </div>
     </header>
 
+    <!-- Mobile Navigation Drawer -->
+    <div class="mobile-nav" id="mobile-menu">
+        <ul class="mobile-links">
+            <li><a href="#about" class="mobile-link-item"><span>01.</span>About</a></li>
+            <li><a href="#skills" class="mobile-link-item"><span>02.</span>Skills</a></li>
+            <li><a href="#projects" class="mobile-link-item"><span>03.</span>Work</a></li>
+            <li><a href="#contact" class="mobile-link-item"><span>04.</span>Contact</a></li>
+        </ul>
+    </div>
+
+    <!-- Main Content -->
     <main>
-        <section class="container hero reveal">
-            <span class="mono">Hi, my name is</span>
-            <h1>Narendhran.</h1>
-            <h2>I engineer optimized systems.</h2>
-            <p>
-                I'm a full-stack developer and CS student specializing in building high-performance architectures,
-                dynamic web applications, and seamless user experiences. Currently focused on Spring Boot, React, and
-                data-driven Python models.
-            </p>
-            <div>
-                <a href="#projects" class="btn btn-primary">Check out my work!</a>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-content">
+                <div class="hero-intro reveal-init">
+                    <span class="mono-cyan text-reveal">Hi, my name is</span>
+                </div>
+                <h1 class="hero-title reveal-init">
+                    <span class="shining-text">Narendhran.</span>
+                </h1>
+                <h2 class="hero-subtitle reveal-init">
+                    I build optimized architectures.
+                </h2>
+                <p class="hero-desc reveal-init">
+                    I am a full-stack developer and computer science student dedicated to engineering high-performance systems,
+                    responsive interfaces, and interactive 3D visualizations. Currently specializing in Java/Spring Boot, React, and ML models.
+                </p>
+                <div class="hero-actions reveal-init">
+                    <a href="#projects" class="btn btn-primary" id="hero-btn-work">Explore Work <i class="fa-solid fa-arrow-down-long btn-icon"></i></a>
+                    <a href="#contact" class="btn btn-secondary" id="hero-btn-contact">Contact Me</a>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-indicator" id="hero-scroll-indicator">
+                <div class="mouse-scroll">
+                    <div class="mouse-wheel"></div>
+                </div>
+                <span class="scroll-text mono-cyan">SCROLL DOWN</span>
             </div>
         </section>
 
-        <section id="skills" class="container reveal">
-            <h2 class="section-title"><span class="mono">02.</span> Tech Stack</h2>
-            <div class="skills-grid">
-                <div class="skill-tag">Java</div>
-                <div class="skill-tag">Spring Boot</div>
-                <div class="skill-tag">React</div>
-                <div class="skill-tag">Redux Toolkit</div>
-                <div class="skill-tag">Python</div>
-                <div class="skill-tag">SQL</div>
-                <div class="skill-tag">Big Data</div>
-                <div class="skill-tag">Git</div>
+        <!-- About Section with Terminal UI -->
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title reveal-scroll" id="title-about">
+                    <span class="mono-cyan">01.</span> About Me
+                </h2>
+                
+                <div class="about-grid">
+                    <div class="about-text reveal-scroll">
+                        <p>
+                            Hello! I'm Narendhran, a developer based in India. I love engineering solutions at the intersection of robust backends and interactive frontend design. My journey in technology started with exploring how code links database records to UI components seamlessly.
+                        </p>
+                        <p>
+                            Fast forward to today, and I work with frameworks like <span class="highlight-cyan">Spring Boot</span> and <span class="highlight-purple">React/Redux</span> to deliver responsive architectures. My focus is on creating web applications that aren't just functional, but also highly performant and engaging.
+                        </p>
+                        <p>
+                            When I'm not writing code, I analyze computer system bottlenecks, experiment with WebGL graphics, or benchmark hardware configurations.
+                        </p>
+                    </div>
+
+                    <!-- Terminal UI Container -->
+                    <div class="terminal-container reveal-scroll" id="developer-terminal">
+                        <div class="terminal-header">
+                            <div class="terminal-dots">
+                                <span class="dot red"></span>
+                                <span class="dot yellow"></span>
+                                <span class="dot green"></span>
+                            </div>
+                            <div class="terminal-title">narendhran.sh</div>
+                        </div>
+                        <div class="terminal-body mono-cyan">
+                            <p class="terminal-line"><span class="prompt">$</span> cat about.json</p>
+                            <div class="terminal-output">
+                                <span class="json-key">"name"</span>: <span class="json-val">"Narendhran"</span>,
+                                <br>
+                                <span class="json-key">"role"</span>: <span class="json-val">"Full-Stack Systems Engineer"</span>,
+                                <br>
+                                <span class="json-key">"location"</span>: <span class="json-val">"India"</span>,
+                                <br>
+                                <span class="json-key">"interests"</span>: [<span class="json-val">"System Design"</span>, <span class="json-val">"Interactive 3D Web"</span>, <span class="json-val">"Big Data"</span>]
+                            </div>
+                            <p class="terminal-line"><span class="prompt">$</span> grep -i "status" objective.txt</p>
+                            <p class="terminal-output val-green">"Actively seeking internships and collaborative open-source projects."</p>
+                            <p class="terminal-line"><span class="prompt">$</span> <span class="cursor-blink">|</span></p>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
-        <section id="projects" class="container reveal">
-            <h2 class="section-title"><span class="mono">03.</span> Featured Projects</h2>
-            <div class="projects-grid">
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-header">
-                            <span class="folder-icon">🗂️</span>
-                            <a href="#" class="mono">GitHub ↗</a>
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section">
+            <div class="container">
+                <h2 class="section-title reveal-scroll" id="title-skills">
+                    <span class="mono-cyan">02.</span> Tech Stack
+                </h2>
+                
+                <div class="skills-showcase">
+                    <p class="skills-intro reveal-scroll">
+                        Here are the key technologies and frameworks that form the foundation of my engineering workflow:
+                    </p>
+                    
+                    <div class="skills-categories-grid">
+                        <!-- Languages -->
+                        <div class="skills-card reveal-scroll">
+                            <div class="skills-card-glow"></div>
+                            <h3 class="skills-card-title"><i class="fa-solid fa-code icon-cyan"></i> Languages</h3>
+                            <ul class="skills-list">
+                                <li><i class="fa-brands fa-java text-orange"></i> Java</li>
+                                <li><i class="fa-brands fa-python text-blue"></i> Python</li>
+                                <li><i class="fa-solid fa-database text-purple"></i> SQL</li>
+                                <li><i class="fa-brands fa-js-square text-yellow"></i> JavaScript (ES6+)</li>
+                            </ul>
                         </div>
-                        <h3 class="project-title">SmartRoute</h3>
-                        <p class="project-desc">
-                            A dynamic route planner utilizing the TomTom Routing API. Integrates real-time traffic and
-                            weather data to calculate optimal travel paths dynamically.
-                        </p>
-                    </div>
-                    <div class="tech-list">
-                        <span>Python</span>
-                        <span>Streamlit</span>
-                        <span>REST APIs</span>
+                        
+                        <!-- Backend & Systems -->
+                        <div class="skills-card reveal-scroll">
+                            <div class="skills-card-glow"></div>
+                            <h3 class="skills-card-title"><i class="fa-solid fa-server icon-purple"></i> Backend & DB</h3>
+                            <ul class="skills-list">
+                                <li><i class="fa-solid fa-leaf text-green"></i> Spring Boot</li>
+                                <li><i class="fa-solid fa-gears text-cyan"></i> REST APIs</li>
+                                <li><i class="fa-solid fa-network-wired text-orange"></i> System Design</li>
+                                <li><i class="fa-solid fa-microchip text-blue"></i> Big Data & ML</li>
+                            </ul>
+                        </div>
+
+                        <!-- Frontend -->
+                        <div class="skills-card reveal-scroll">
+                            <div class="skills-card-glow"></div>
+                            <h3 class="skills-card-title"><i class="fa-solid fa-laptop-code icon-pink"></i> Frontend</h3>
+                            <ul class="skills-list">
+                                <li><i class="fa-brands fa-react text-blue"></i> React.js</li>
+                                <li><i class="fa-solid fa-circle-nodes text-purple"></i> Redux Toolkit</li>
+                                <li><i class="fa-brands fa-css3-alt text-orange"></i> Custom CSS / SASS</li>
+                                <li><i class="fa-solid fa-cubes text-cyan"></i> WebGL / Three.js</li>
+                            </ul>
+                        </div>
                     </div>
                 </div>
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-header">
-                            <span class="folder-icon">🗂️</span>
-                            <a href="#" class="mono">GitHub ↗</a>
-                        </div>
-                        <h3 class="project-title">ANPR System</h3>
-                        <p class="project-desc">
-                            An Automatic Number Plate Recognition system designed for real-time vehicle detection and
-                            automated toll/parking management scenarios.
-                        </p>
-                    </div>
-                    <div class="tech-list">
-                        <span>Machine Learning</span>
-                        <span>Python</span>
-                        <span>OpenCV</span>
-                    </div>
-                </div>
-
-                <div class="project-card">
-                    <div>
-                        <div class="project-header">
-                            <span class="folder-icon">🗂️</span>
-                            <a href="#" class="mono">GitHub ↗</a>
-                        </div>
-                        <h3 class="project-title">ConnectX</h3>
-                        <p class="project-desc">
-                            A robust system architecture managing complex relational models for crowd analysis and
-                            flight reporting databases.
-                        </p>
-                    </div>
-                    <div class="tech-list">
-                        <span>SQL</span>
-                        <span>Database Design</span>
-                        <span>Architecture</span>
-                    </div>
-                </div>
-
             </div>
         </section>
 
-        <section id="contact" class="container reveal contact">
-            <h2 class="section-title" style="justify-content: center;"><span class="mono">04.</span> What's Next?</h2>
-            <h1>Get In Touch</h1>
-            <p>
-                Whether you have a question about system optimizations, want to collaborate on a full-stack project, or
-                just want to discuss the latest gaming hardware benchmarks, my inbox is always open!
-            </p>
-            <a href="mailto:hello@example.com" class="btn btn-primary">Say Hello</a>
+        <!-- Projects Section -->
+        <section id="projects" class="projects-section">
+            <div class="container">
+                <h2 class="section-title reveal-scroll" id="title-projects">
+                    <span class="mono-cyan">03.</span> Work Portfolio
+                </h2>
+                
+                <div class="projects-grid">
+                    <!-- Project 1 -->
+                    <div class="project-card reveal-scroll" id="project-smartroute">
+                        <div class="project-card-glow"></div>
+                        <div class="project-card-content">
+                            <div class="project-header">
+                                <div class="project-icons">
+                                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                                </div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub Repository"><i class="fa-brands fa-github"></i></a>
+                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                            
+                            <h3 class="project-title">SmartRoute</h3>
+                            <p class="project-desc">
+                                A dynamic route planner utilizing the TomTom Routing API. Integrates real-time traffic updates and local weather conditions to dynamically map optimal itineraries.
+                            </p>
+                            
+                            <div class="project-tech">
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">Streamlit</span>
+                                <span class="tech-tag">TomTom API</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2 -->
+                    <div class="project-card reveal-scroll" id="project-anpr">
+                        <div class="project-card-glow"></div>
+                        <div class="project-card-content">
+                            <div class="project-header">
+                                <div class="project-icons">
+                                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                                </div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub Repository"><i class="fa-brands fa-github"></i></a>
+                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                            
+                            <h3 class="project-title">ANPR System</h3>
+                            <p class="project-desc">
+                                Automatic Number Plate Recognition system designed for high-accuracy vehicle tracking. Detects vehicle license plates in real-time under variable lighting and traffic flows.
+                            </p>
+                            
+                            <div class="project-tech">
+                                <span class="tech-tag">Machine Learning</span>
+                                <span class="tech-tag">Python</span>
+                                <span class="tech-tag">OpenCV</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 3 -->
+                    <div class="project-card reveal-scroll" id="project-connectx">
+                        <div class="project-card-glow"></div>
+                        <div class="project-card-content">
+                            <div class="project-header">
+                                <div class="project-icons">
+                                    <i class="fa-regular fa-folder-open folder-icon"></i>
+                                </div>
+                                <div class="project-links">
+                                    <a href="#" class="project-link" aria-label="GitHub Repository"><i class="fa-brands fa-github"></i></a>
+                                    <a href="#" class="project-link" aria-label="Live Demo"><i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                                </div>
+                            </div>
+                            
+                            <h3 class="project-title">ConnectX</h3>
+                            <p class="project-desc">
+                                Robust, optimized relational database engine supporting massive crowdsourced reports, high-velocity flight statistics, and relational mapping layers.
+                            </p>
+                            
+                            <div class="project-tech">
+                                <span class="tech-tag">SQL</span>
+                                <span class="tech-tag">Database Tuning</span>
+                                <span class="tech-tag">Schema Design</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section">
+            <div class="container contact-container reveal-scroll">
+                <span class="mono-cyan subtitle">04. What's Next?</span>
+                <h2 class="contact-title">Get In Touch</h2>
+                <p class="contact-text">
+                    I am actively seeking new opportunities, internships, and open source collaborations. If you want to build high-performance systems or create immersive web graphics, my inbox is always open.
+                </p>
+                <div class="contact-button-wrapper">
+                    <a href="mailto:hello@example.com" class="btn btn-primary btn-large" id="contact-mail-btn">Say Hello <i class="fa-regular fa-envelope btn-icon"></i></a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-icon" aria-label="GitHub"><i class="fa-brands fa-github"></i></a>
+                    <a href="#" class="social-icon" aria-label="LinkedIn"><i class="fa-brands fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon" aria-label="Twitter"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
         </section>
     </main>
 
-    <footer>
-        <p>Designed & Built by Narendhran</p>
+    <!-- Footer -->
+    <footer id="main-footer">
+        <div class="container footer-content">
+            <p class="footer-text">Designed & Built by Narendhran &copy; 2026</p>
+            <p class="footer-subtext mono-cyan">Built with HTML5, CSS3, Three.js & GSAP</p>
+        </div>
     </footer>
 
-    <script>
-        // Intersection Observer for smooth reveal animations on scroll
-        const revealElements = document.querySelectorAll('.reveal');
-
-        const revealOptions = {
-            threshold: 0.15,
-            rootMargin: "0px 0px -50px 0px"
-        };
-
-        const revealOnScroll = new IntersectionObserver(function (entries, observer) {
-            entries.forEach(entry => {
-                if (!entry.isIntersecting) return;
-                entry.target.classList.add('active');
-                observer.unobserve(entry.target);
-            });
-        }, revealOptions);
-
-        revealElements.forEach(el => revealOnScroll.observe(el));
-    </script>
+    <!-- Scripts (Libraries via CDN first, then custom app) -->
+    <!-- Three.js (3D Graphics) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <!-- GSAP (Core Animations) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <!-- GSAP ScrollTrigger plugin -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    
+    <!-- Application script -->
+    <script src="app.js"></script>
 </body>
 
 </html>
